@@ -1,8 +1,8 @@
-import scala.collection.JavaConversions.mapAsScalaMap
+import scala.collection.JavaConversions.propertiesAsScalaMap
 
 def prn(x: TraversableOnce[_]) = println(x.mkString(x.getClass.getSimpleName + "(", ", ", ")"))
 
-val props = mapAsScalaMap(System.getProperties().asInstanceOf[java.util.Map[String, String]])
+val props = propertiesAsScalaMap(System.getProperties())
 
 val maxkey = props.keySet.map(_.length).max
 
