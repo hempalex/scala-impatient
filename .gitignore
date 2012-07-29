@@ -1,2 +1,4 @@
 *.sublime*
 target/
+*.class
+*.jar
