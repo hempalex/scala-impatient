@@ -1,14 +1,10 @@
-object CardSuits extends Enumeration {
-	type CardSuits = Value
-	val spade = Value("♠")
-	val club = Value("♣")
-	val heart = Value("♥")
-	val diamond = Value("♦")
-
-	def isRed(card: CardSuits) = card == heart || card == diamond
+object Suits extends Enumeration {
+	type Suits = Value
+	val Spade = Value("♠")
+	val Club = Value("♣")
+	val Heart = Value("♥")
+	val Diamond = Value("♦")
+	def isRed(card: Suits) = card == Heart || card == Diamond
 }
 
-println(CardSuits.isRed(CardSuits.spade));
-println(CardSuits.isRed(CardSuits.club));
-println(CardSuits.isRed(CardSuits.heart));
-println(CardSuits.isRed(CardSuits.diamond));
+ println(for (s <- Suits.values) yield (s, Suits.isRed(s)))

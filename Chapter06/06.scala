@@ -1,11 +1,9 @@
-object CardSuits extends Enumeration {
-	val spade = Value("♠")
-	val club = Value("♣")
-	val heart = Value("♥")
-	val diamond = Value("♦")
+object Suits extends Enumeration {
+	type Suits = Value
+	val Spade = Value("♠")
+	val Club = Value("♣")
+	val Heart = Value("♥")
+	val Diamond = Value("♦")
 }
 
-println(CardSuits.spade);
-println(CardSuits.club);
-println(CardSuits.heart);
-println(CardSuits.diamond);
+println(Suits.values);
