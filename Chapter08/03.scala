@@ -17,10 +17,10 @@ object Point {
 	def apply(x: Int = 0, y: Int = 0) = new Point(x, y)
 }
 
-class Square(val topLeft: Point, val rightBottom: Point) extends Shape with Drawable {
-	override val name = "Square"
+class Rectangle(val topLeft: Point, val bottomRight: Point) extends Shape with Drawable {
+	override val name = "Rectangle"
 	override def toString = {
-		"%s (%s - %s)".format(name, topLeft.toString, rightBottom.toString)
+		"%s (%s - %s)".format(name, topLeft.toString, bottomRight.toString)
 	}
 }
 
@@ -32,7 +32,7 @@ class Circle(val center: Point, val radius: Int) extends Shape with Drawable {
 }
 
 val l: List[Shape with Drawable] = List(
-	new Square(Point(1, 1), Point(10, 20)),
+	new Rectangle(Point(1, 1), Point(10, 20)),
 	new Circle(Point(2, 2), 5)
 )
 
