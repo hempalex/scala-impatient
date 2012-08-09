@@ -23,28 +23,17 @@ object Main extends App {
 	anna friend clair
 	clair friend boris
 
-	println("Original objects:")
+	val all = Array(anna, boris, clair)
 
-	println(anna)
-	println(boris)
-	println(clair)
+	println("Original objects: " + all.mkString(", "))
 
 	val out = new ObjectOutputStream(new FileOutputStream("10.out"))
-	out.writeObject(anna)
-	out.writeObject(boris)
-	out.writeObject(clair)
+	out.writeObject(all)
 	out.close()
 
 	val in = new ObjectInputStream(new FileInputStream("10.out"))
-	val savedAnna = in.readObject().asInstanceOf[Person]
-	val savedBoris = in.readObject().asInstanceOf[Person]
-	val savedClair = in.readObject().asInstanceOf[Person]
+	val res = in.readObject().asInstanceOf[Array[Person]]
 	in.close()
 
-	println("Restored objects:")
-
-	println(savedAnna)
-	println(savedBoris)
-	println(savedClair)
-
+	println("Restored objects: " + res.mkString(", "))
 }
