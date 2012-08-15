@@ -1,6 +1,5 @@
 object RichFile { 
 	def unapplySeq(s: String): Option[Seq[String]] = {
-		println(s.trim.split("/").mkString(","))
 		if (s.trim == "") None else Some(s.trim.split("/")) 
 	}
 }
