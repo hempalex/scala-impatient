@@ -1,18 +1,30 @@
-import scala.io.Source
-val str = Source.fromFile("10.txt").mkString
+val str = io.Source.fromFile("10.txt").mkString
 
-val start1 = System.currentTimeMillis()
-val freq1 = new scala.collection.mutable.HashMap[Char, Int] 
-for (c <- str) freq1(c) = freq1.getOrElse(c, 0) + 1
-val end1 = System.currentTimeMillis()
-println("Time using mutable collection: %d".format(end1 - start1))
-println(freq1.toSeq.sorted)
+def printMills(msg: String)(block: => Unit) {
+	val start = System.currentTimeMillis()
+	block
+	val end = System.currentTimeMillis()
+	println(msg.format(end-start))
+}
 
-val start2 = System.currentTimeMillis()
-val freq2 = str.par.map(c => (c, 1)).groupBy(_._1).map(x => (x._1, x._2.length))
-val end2 = System.currentTimeMillis()
-println("Time using parallel collection: %d".format(end2 - start2))
-println(freq2.seq.toSeq.sorted)
-
+printMills("Using mutable collection: %d ms") {
+	val freq = new collection.mutable.HashMap[Char, Int] 
+	for (c <- str) freq(c) = freq.getOrElse(c, 0) + 1
+	println(freq.toSeq.sorted)
+}
 
 
+printMills("Using immutable collection: %d ms") {
+	val freq = str.map(c => (c, 1)).groupBy(_._1).map(x => (x._1, x._2.length))
+	println(freq.seq.toSeq.sorted)
+}
+
+printMills("Using mutable parallel collection: %d ms") {
+
+	val freq = str.par.aggregate(new collection.immutable.HashMap[Char, Int])(
+		(x, c) => x + (c ->(x.getOrElse(c, 0) + 1)),
+		(map1, map2) => map1 ++ map2.map{ case (k,v) => k -> (v + map1.getOrElse(k,0)) }		
+	)
+
+	println(freq.toSeq.sorted)
+}
