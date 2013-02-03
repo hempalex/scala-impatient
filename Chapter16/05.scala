@@ -1,4 +1,4 @@
-// scala -classpath ./*.jar 04.scala
+// scala -classpath ./*.jar 05.scala
 
 import scala.xml.XML
 
