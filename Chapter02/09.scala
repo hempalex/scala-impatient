@@ -1,6 +1,6 @@
 def prod(s: String) : Long = {
 	if (s.size > 0)
-		prod(s.tail) * s.head.toLong
+		 s.head.toLong * prod(s.tail)
 	else
 		1
 }
