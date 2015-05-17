@@ -5,7 +5,7 @@ package object random {
 
 	def setSeed(value: Int) = seed = value
 	def nextInt() = {
-		seed = seed * 1664525 + 1013904223 % (2 ^ 32)
+		seed = seed * 1664525 + 1013904223 % Math.pow(2, 32).toInt
 		seed
 	}
 	def nextDouble() : Double = nextInt().toDouble / Int.MaxValue.toDouble
