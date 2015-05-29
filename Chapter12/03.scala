@@ -1,4 +1,5 @@
-def factorial(n: Int) = (1 to n).reduceLeft(_ * _)
+def fac(n: Int) = (0 to n).reduceLeft((a, b) => if(a == 0) 1 else (a * b)) 
 
-println(factorial(3))
-println(factorial(5))
+for(i <- 0 to 10) {
+  println("%d %d".format(i, fac(i)))
+}
