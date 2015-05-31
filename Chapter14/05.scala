@@ -1,15 +1,8 @@
+val tree = List(List(3,8), 2, List(5))
 
-def sumLeaf(list: List[Any]) : Int = {
-	(for(elem <- list) yield ( 
-		elem match {
-			case x: List[Int] => sumLeaf(x)
-			case x: Int => x
-			case _ => 0
-		}
-	)).sum
-}
+def leafSum(n : List[Any]) : Int = n.map(_ match {
+  case l : List[Any] => leafSum(l)
+  case n : Int => n
+}).sum
 
-val x = List(List(3, 8), 2, List(5))
-
-println(x)
-println(sumLeaf(x))
+println(leafSum(tree))
