@@ -6,7 +6,7 @@ trait RectangleLike {
 	def setFrame(x: Double, y: Double, width: Double, height: Double)
 
 	def translate(dx: Double, dy: Double) = {
-		setFrame(getX() + dx, getY() + dy, getWidth(), getHeight())
+		setFrame(getX() + dx, getY() - dy, getWidth(), getHeight())
 	}
 
 	def grow(dx: Double, dy: Double) = {
