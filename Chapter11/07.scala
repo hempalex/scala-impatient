@@ -1,20 +1,26 @@
-class BitSequence(private var value: Long = 0) {
+class BitSequence {
+  var bitfield : Long = 0
 
-	implicit def bool2int(b: Boolean) = if (b) 1 else 0
+  def apply(offset : Int) : Boolean =  {
+    (bitfield & (1 << offset)) != 0
+  }
 
-	def update(bit: Int, state: Int) = value |= (state & 1L) << bit % 64
-	def apply(bit: Int): Int = if ((value & 1L << bit % 64) > 0) 1 else 0
-
-	override def toString = "%64s".format(value.toBinaryString).replace(" ", "0")
+  def update(offset : Int, v : Boolean ) = {
+    if(v) {
+      bitfield |= 1 << offset
+    } else if(apply(offset)) {
+        bitfield -= 1 << offset
+    }
+  }
 }
 
+object BitSequence {
+  def apply() = { new BitSequence() }
+}
 
-val x = new BitSequence()
-
-x(5) = 1
-x(63) = 1
-x(64) = 1
-
-println(x(5))
-
-println(x)
+val b = BitSequence()
+println(b(4))
+b(4) = true
+println(b(4))
+b(4) = false
+println(b(4))
