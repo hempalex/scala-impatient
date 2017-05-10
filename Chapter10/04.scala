@@ -7,14 +7,18 @@ trait ConsoleLogger extends Logger {
 }
 
 trait CaesarLogger extends Logger {
-	val shift: Int = 3
-	override def log(msg: String) = {
-		super.log((for(x <- msg) yield (x + shift).toChar).mkString)
-		// more elegant
-		super.log(msg.map(_ + shift).map(_.toChar).mkString)
-		// speedup but less elegant
-		super.log(msg.map((x : Char) => (x + shift).toChar).mkString)
-	}
+  val key = 3
+
+  private val alphaU='A' to 'Z'
+  private val alphaL='a' to 'z'
+  private def rot(a:IndexedSeq[Char], c:Char)=a((c-a.head+key+a.size)%a.size)
+  
+  override def log(msg: String) = {
+    super.log(msg.map{
+      case c if alphaU.contains(c) => rot(alphaU, c)
+      case c if alphaL.contains(c) => rot(alphaL, c)
+      case c => c})
+  }
 }
 
 
