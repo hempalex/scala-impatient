@@ -13,8 +13,12 @@ trait Buffering {
 	override def read(): Int = {
 		if (pos >= bufsize) {
 			bufsize = this.read(buf, 0, BUF_SIZE)
-			if (bufsize > 0) -1
-			pos = 0
+			if (bufsize > 0) { 
+				pos = 0
+			} else {
+				// nothing additional was read, so return -1
+				return -1	
+			}
 		}
 		pos += 1
 		buf(pos-1)
